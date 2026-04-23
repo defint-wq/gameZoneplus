@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 export const NavigationMenuGroup = ({
   name,
   children,
@@ -32,11 +34,15 @@ export const NavigationMenuLinkItem = ({
   name: string;
   icon?: React.ElementType;
 }) => {
-  const settingsPath = `/settings/${path}`;
+  const navigate = useNavigate();
 
   return (
     <a
-      href={settingsPath}
+      href={path}
+      onClick={(e) => {
+        e.preventDefault();
+        navigate(path);
+      }}
       className="flex items-center gap-3 py-2 px-4 hover:bg-gray-100 rounded-md"
     >
       {Icon && <Icon className="size-4" />}

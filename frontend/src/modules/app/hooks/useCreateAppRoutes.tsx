@@ -1,15 +1,21 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Navigate,
   Route,
 } from "react-router-dom";
-import { AppPath } from "../types/AppPath";
 import { ShopRoutes } from "../components/ShopRoutes";
+import { MainLayout } from "../components/MainLayout";
+import { HomePage } from "../../../pages/HomePage";
 
 export const useCreateAppRouter = () => {
   return createBrowserRouter(
     createRoutesFromElements(
-      <Route path={AppPath.ShopCatchAll} element={<ShopRoutes />} />,
+      <Route element={<MainLayout />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/shop" element={<ShopRoutes />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>,
     ),
   );
 };
