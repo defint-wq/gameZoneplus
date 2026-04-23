@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { AppRouter } from "./modules/app/components/AppRoutes";
+import { NavigationCoreModules } from "./modules/navigation/NavigationCoreModules";
 
 export const App = () => {
-  const [count, setcount] = useState(0);
-
   return (
-    <div>
-      <p className="text-3xl text-red-500">{count}</p>
-      <button
-        className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition"
-        onClick={() => setcount(count + 1)}
-      >
-        Add
-      </button>
+    <div className="flex h-screen">
+      <aside className="w-64 border-r bg-sidebar">
+        <nav className="p-4">
+          <NavigationCoreModules />
+        </nav>
+      </aside>
+
+      <main className="flex-1">
+        <AppRouter />
+      </main>
     </div>
   );
 };
