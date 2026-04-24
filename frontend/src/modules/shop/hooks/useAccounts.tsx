@@ -30,7 +30,6 @@ export const useAccounts = () => {
         },
       ];
 
-      // Класс руу хөрвүүлж хадгалах
       setAccounts(rawData.map((item) => new Account(item)));
       setLoading(false);
     };

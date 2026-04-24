@@ -15,6 +15,7 @@ export const useCreateAppRouter = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopRoutes />} />
         <Route path="*" element={<Navigate to="/" replace />} />
+        {/* <Route path="/teams" element={<TeamPage/>}/> */}
       </Route>,
     ),
   );
