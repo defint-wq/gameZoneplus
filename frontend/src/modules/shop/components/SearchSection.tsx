@@ -1,33 +1,34 @@
-import { Search, SlidersHorizontal } from "lucide-react";
+import { Search, SlidersHorizontal } from "lucide-react"
 
-export const SearchSection = () => {
+export const SearchSection = ({
+  searchQuery,
+  setSearchQuery,
+  showFilters,
+  setShowFilters,
+}: any) => {
   return (
-    <div className="flex flex-col md:flex-row gap-4 mb-8">
-      {/* Search Input */}
-      <div className="relative flex-grow">
-        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-          <Search className="h-5 w-5 text-slate-400" />
-        </div>
+    <div className="flex flex-col md:flex-row gap-4 mb-6">
+
+      {/* SEARCH */}
+      <div className="relative flex-1">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8b95b8]" />
         <input
-          type="text"
-          className="block w-full pl-11 pr-4 py-3 bg-slate-800/50 border border-slate-700 rounded-2xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-          placeholder="Аккаунт хайх"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search accounts..."
+          className="w-full pl-10 pr-4 py-3 bg-[#0d1220] border border-[rgba(91,104,245,0.15)] rounded-xl focus:ring-2 focus:ring-[#5b68f5]"
         />
       </div>
 
-      {/* Filter & Sort Buttons */}
-      <div className="flex gap-2">
-        <select className="bg-slate-800/50 border border-slate-700 text-slate-200 px-4 py-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
-          <option>Sort by Date</option>
-          <option>Үнэ: Хямдаас үнэтэй</option>
-          <option>Үнэ: Үнэтэйгээс хямд</option>
-        </select>
+      {/* FILTER BUTTON */}
+      <button
+        onClick={() => setShowFilters(!showFilters)}
+        className="px-5 py-3 rounded-xl bg-[#0d1220] border border-[rgba(91,104,245,0.15)] flex items-center gap-2"
+      >
+        <SlidersHorizontal className="w-5 h-5 text-[#5b68f5]" />
+        Filters
+      </button>
 
-        <button className="flex items-center gap-2 px-4 py-3 bg-slate-800/50 border border-slate-700 text-slate-200 rounded-2xl hover:bg-slate-700 transition-colors">
-          <SlidersHorizontal className="h-5 w-5" />
-          <span>Шүүлтүүр</span>
-        </button>
-      </div>
     </div>
-  );
-};
+  )
+}
