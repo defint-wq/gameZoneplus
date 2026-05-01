@@ -8,6 +8,7 @@ import { ShopRoutes } from "../components/ShopRoutes";
 import { MainLayout } from "../components/MainLayout";
 import { HomePage } from "../../../pages/HomePage";
 import { TeamsRoutes } from "../components/TeamsRoutes";
+import { AdminRoutes } from "../components/AdminRoutes";
 
 export const useCreateAppRouter = () => {
   return createBrowserRouter(
@@ -17,6 +18,7 @@ export const useCreateAppRouter = () => {
         <Route path="/shop" element={<ShopRoutes />} />
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route path="/teams" element={<TeamsRoutes />} />
+        <Route path="/admin" element={<AdminRoutes />} />        
       </Route>,
     ),
   );

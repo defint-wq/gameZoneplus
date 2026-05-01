@@ -28,6 +28,33 @@ export const useAccounts = () => {
           badge: "Legend",
           region: "SEA",
         },
+        {
+          id: 3,
+          title: "Mythic Ranked Carry Account",
+          skins: 210,
+          winRate: 71.8,
+          price: 780000,
+          badge: "Mythic",
+          region: "SEA",
+        },
+        {
+          id: 4,
+          title: "Epic Budget Starter Account",
+          skins: 28,
+          winRate: 58.1,
+          price: 90000,
+          badge: "Epic",
+          region: "Mongolia",
+        },
+        {
+          id: 5,
+          title: "Mythical Immortal Whale Account",
+          skins: 560,
+          winRate: 76.9,
+          price: 2500000,
+          badge: "Mythical Immortal",
+          region: "Global",
+        },
       ];
 
       setAccounts(rawData.map((item) => new Account(item)));

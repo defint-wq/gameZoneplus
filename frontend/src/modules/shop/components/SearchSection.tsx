@@ -1,17 +1,26 @@
-import { Search, SlidersHorizontal } from "lucide-react"
+import { Search, SlidersHorizontal } from "lucide-react";
+
+type SearchSectionProps = {
+  searchQuery: string;
+  setSearchQuery: (value: string) => void;
+
+  showFilters: boolean;
+  setShowFilters: (value: boolean) => void;
+};
 
 export const SearchSection = ({
   searchQuery,
   setSearchQuery,
   showFilters,
   setShowFilters,
-}: any) => {
+}: SearchSectionProps) => {
   return (
     <div className="flex flex-col md:flex-row gap-4 mb-6">
 
       {/* SEARCH */}
       <div className="relative flex-1">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8b95b8]" />
+
         <input
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -30,5 +39,5 @@ export const SearchSection = ({
       </button>
 
     </div>
-  )
-}
+  );
+};
