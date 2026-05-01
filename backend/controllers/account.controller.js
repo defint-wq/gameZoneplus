@@ -1,15 +1,58 @@
 import { accounts } from "../data/accounts.data.js";
 
-// GET all
+// LIKE / UNLIKE
+export const toggleLike = (req, res) => {
+  const id = Number(req.params.id);
+  const { userId } = req.body;
+
+  const account = accounts.find((a) => a.id === id);
+  if (!account) return res.status(404).json({ message: "Not found" });
+
+  account.likes ??= [];
+
+  const index = account.likes.indexOf(userId);
+
+  if (index === -1) {
+    account.likes.push(userId);
+  } else {
+    account.likes.splice(index, 1);
+  }
+
+  res.json(account);
+};
+
+// COMMENT
+export const addComment = (req, res) => {
+  const id = Number(req.params.id);
+  const { userId, text } = req.body;
+
+  const account = accounts.find((a) => a.id === id);
+  if (!account) return res.status(404).json({ message: "Not found" });
+
+  account.comments ??= [];
+
+  const newComment = {
+    id: Date.now(),
+    userId,
+    text,
+    createdAt: new Date(),
+  };
+
+  account.comments.push(newComment);
+
+  res.json(account);
+};
+
+// GET ALL
 export const getAccounts = (req, res) => {
   res.json(accounts);
 };
 
-// GET by id
+// GET ONE
 export const getAccountById = (req, res) => {
   const id = Number(req.params.id);
-  const account = accounts.find(a => a.id === id);
 
+  const account = accounts.find((a) => a.id === id);
   if (!account) return res.status(404).json({ message: "Not found" });
 
   res.json(account);
@@ -20,6 +63,8 @@ export const createAccount = (req, res) => {
   const newAccount = {
     id: Date.now(),
     ...req.body,
+    likes: [],
+    comments: [],
   };
 
   accounts.push(newAccount);
@@ -31,7 +76,7 @@ export const createAccount = (req, res) => {
 export const updateAccount = (req, res) => {
   const id = Number(req.params.id);
 
-  const index = accounts.findIndex(a => a.id === id);
+  const index = accounts.findIndex((a) => a.id === id);
   if (index === -1) return res.status(404).json({ message: "Not found" });
 
   accounts[index] = { ...accounts[index], ...req.body };
@@ -43,9 +88,10 @@ export const updateAccount = (req, res) => {
 export const deleteAccount = (req, res) => {
   const id = Number(req.params.id);
 
-  const newList = accounts.filter(a => a.id !== id);
-  accounts.length = 0;
-  accounts.push(...newList);
+  const index = accounts.findIndex((a) => a.id === id);
+  if (index === -1) return res.status(404).json({ message: "Not found" });
 
-  res.json({ message: "Deleted" });
+  const deleted = accounts.splice(index, 1);
+
+  res.json(deleted[0]);
 };
