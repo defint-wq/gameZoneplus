@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { addComment } from "../../../../../backend/services/accountService";
+import { LikeButton } from "./Like";
 
 export const CommentBox = ({ account }: any) => {
   const [text, setText] = useState("");
@@ -48,6 +49,7 @@ export const CommentBox = ({ account }: any) => {
         >
           Send
         </button>
+        <LikeButton account={account} />
       </div>
     </div>
   );

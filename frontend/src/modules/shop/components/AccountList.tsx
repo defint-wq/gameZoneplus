@@ -17,7 +17,10 @@ export const AccountList = ({ searchQuery }: any) => {
   return (
     <div className="grid gap-4 p-4 ">
       {filtered.map((acc) => (
-        <div key={acc.id} className=" border border-white/10 rounded-xl p-4 bg-[#0d1220]">
+        <div
+          key={acc.id}
+          className=" border border-white/10 rounded-xl p-4 bg-[#0d1220]"
+        >
           <h3 className="text-lg font-bold">{acc.title}</h3>
           <p className="text-sm text-gray-400">{acc.description}</p>
           <div className="mt-2 flex gap-4 text-sm ">
@@ -29,8 +32,7 @@ export const AccountList = ({ searchQuery }: any) => {
             <span>💰 {acc.price.toLocaleString()}₮</span>
             <span>{acc.badge}</span>
           </div>
-          <LikeButton account={acc} />
-          <CommentBox account={acc} />{" "}
+          <CommentBox account={acc} />
         </div>
       ))}
     </div>
