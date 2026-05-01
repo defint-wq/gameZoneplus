@@ -1,6 +1,14 @@
 import React from "react";
 import { useTeams } from "../hooks/useTeams";
-import { Table } from "../../../../ui/components/table";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableHead,
+  TableHeader,
+  TableRow,
+  TableCell,
+} from "../../../../ui/components/table";
 
 export const TeamsList: React.FC = () => {
   const { teams, loading } = useTeams();
@@ -14,21 +22,21 @@ export const TeamsList: React.FC = () => {
       <h2 className="text-2xl font-bold mb-4">Багуудын жагсаалт</h2>
 
       <Table>
-        <Table.Caption>Нийт бүртгэлтэй багуудын мэдээлэл</Table.Caption>
-        <Table.Header>
-          <Table.Row>
-            <Table.Head>Багийн нэр</Table.Head>
-            <Table.Head>Бүс нутаг</Table.Head>
-            <Table.Head>Ранк</Table.Head>
-            <Table.Head>Хожлын хувь</Table.Head>
-            <Table.Head>Гишүүд</Table.Head>
-          </Table.Row>
-        </Table.Header>
+        <TableCaption>Нийт бүртгэлтэй багуудын мэдээлэл</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Багийн нэр</TableHead>
+            <TableHead>Бүс нутаг</TableHead>
+            <TableHead>Ранк</TableHead>
+            <TableHead>Хожлын хувь</TableHead>
+            <TableHead>Гишүүд</TableHead>
+          </TableRow>
+        </TableHeader>
 
-        <Table.Body>
+        <TableBody>
           {teams.map((team) => (
-            <Table.Row key={team.id}>
-              <Table.Cell className="font-medium">
+            <TableRow key={team.id}>
+              <TableCell className="font-medium">
                 <div className="flex items-center gap-2">
                   {team.logoUrl && (
                     <img
@@ -39,11 +47,11 @@ export const TeamsList: React.FC = () => {
                   )}
                   {team.name}
                 </div>
-              </Table.Cell>
-              <Table.Cell>{team.region}</Table.Cell>
-              <Table.Cell>{team.rank}</Table.Cell>
-              <Table.Cell>{team.winRate}%</Table.Cell>
-              <Table.Cell>
+              </TableCell>
+              <TableCell>{team.region}</TableCell>
+              <TableCell>{team.rank}</TableCell>
+              <TableCell>{team.winRate}%</TableCell>
+              <TableCell>
                 <div className="flex flex-wrap gap-1">
                   {team.members.map((player) => (
                     <span
@@ -55,10 +63,10 @@ export const TeamsList: React.FC = () => {
                     </span>
                   ))}
                 </div>
-              </Table.Cell>
-            </Table.Row>
+              </TableCell>
+            </TableRow>
           ))}
-        </Table.Body>
+        </TableBody>
       </Table>
     </div>
   );
