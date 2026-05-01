@@ -8,7 +8,9 @@ import { PageContainer } from "../../ui/components/page";
 export const ShopPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showFilters, setShowFilters] = useState(false);
-  const [search, setSearch] = useState("");
+
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
 
   return (
     <PageContainer>
@@ -19,9 +21,17 @@ export const ShopPage = () => {
         setSearchQuery={setSearchQuery}
         showFilters={showFilters}
         setShowFilters={setShowFilters}
+        minPrice={minPrice}
+        setMinPrice={setMinPrice}
+        maxPrice={maxPrice}
+        setMaxPrice={setMaxPrice}
       />
 
-      <AccountList searchQuery={search} />
+      <AccountList
+        searchQuery={searchQuery}
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+      />
 
       <ShopFooter />
     </PageContainer>
