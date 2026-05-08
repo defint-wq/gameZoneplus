@@ -76,7 +76,7 @@ export const AdminPage = () => {
   };
 
   return (
-    <div className="min-h-screen ml-16 md:ml-32  text-white p-6 md:p-10 font-sans">
+    <div className="min-h-screen ml-16 md:ml-32 text-white p-6 md:p-10 font-sans">
       
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
