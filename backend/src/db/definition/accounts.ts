@@ -2,11 +2,6 @@ import mongoose from "mongoose";
 
 export const accountSchema = new mongoose.Schema(
   {
-    id: {
-      type: Number,
-      required: true,
-      unique: true,
-    },
     title: {
       type: String,
       required: true,
@@ -62,7 +57,3 @@ export const accountSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
-
-const Account = mongoose.model("Account", accountSchema);
-
-export default Account;

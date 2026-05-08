@@ -23,6 +23,7 @@ export const loadAccountClass = (model: IModels) => {
 
     public static async createAccount(doc: IAccount) {
       const account = await model.Accounts.create(doc);
+      console.log("DOCCC:", doc);
       return account;
     }
 

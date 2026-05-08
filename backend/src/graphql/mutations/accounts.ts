@@ -4,6 +4,7 @@ import type { IContext } from "../../../connectionResolver";
 export const Accounts = {
   async accountAdd(_root: undefined, doc: IAccount, { models }: IContext) {
     const account = await models.Accounts.createAccount(doc);
+    console.log("ACCOUNT:", account);
     return account;
   },
 
