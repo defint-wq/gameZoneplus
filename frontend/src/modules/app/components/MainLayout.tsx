@@ -21,7 +21,6 @@ export const MainLayout = () => {
     { path: "/shop", icon: ShoppingCart, label: "Shop" },
     { path: "/arcade", icon: Gamepad2, label: "Arcade" },
     { path: "/teams", icon: Users, label: "Teams" },
-    { path: "/news", icon: Newspaper, label: "News" },
     { path: "/admin", icon: Shield, label: "Admin Panel" },
   ];
 

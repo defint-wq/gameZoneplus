@@ -25,14 +25,11 @@ export const AccountList = ({
     fetchAccounts();
   }, []);
 
-  // Шүүлтүүрийн болон хайлтын логик
   const filtered = accounts.filter((acc) => {
-    // Нэрээр хайх
     const matchesName = acc.title
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
 
-    // Үнийн хооронд шүүх
     const min = minPrice ? parseFloat(minPrice) : 0;
     const max = maxPrice ? parseFloat(maxPrice) : Infinity;
     const matchesPrice = acc.price >= min && acc.price <= max;

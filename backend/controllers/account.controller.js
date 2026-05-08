@@ -4,7 +4,6 @@ import { accounts } from "../data/accounts.data.js";
 export const toggleLike = (req, res) => {
   const id = Number(req.params.id);
   const { userId } = req.body;
-
   const account = accounts.find((a) => a.id === id);
   if (!account) return res.status(404).json({ message: "Not found" });
 
