@@ -4,7 +4,6 @@ import type { IContext } from "../../../connectionResolver";
 export const Accounts = {
   async accountAdd(_root: undefined, doc: IAccount, { models }: IContext) {
     const account = await models.Accounts.createAccount(doc);
-    console.log("ACCOUNT:", account);
     return account;
   },
 
@@ -26,5 +25,37 @@ export const Accounts = {
   ) {
     await models.Accounts.removeAccounts(ids);
     return "Deleted Successfully!!!";
+  },
+
+  async accountLike(
+    _root: undefined,
+    { _id, userId }: { _id: string; userId: string },
+    { models }: IContext,
+  ) {
+    return await models.Accounts.accountLike(_id, userId);
+  },
+
+  async accountUnlike(
+    _root: undefined,
+    { _id, userId }: { _id: string; userId: string },
+    { models }: IContext,
+  ) {
+    return await models.Accounts.accountUnlike(_id, userId);
+  },
+
+  async commentAdd(
+    _root: undefined,
+    { _id, userId, text }: { _id: string; userId: string; text: string },
+    { models }: IContext,
+  ) {
+    return await models.Accounts.commentAdd(_id, userId, text);
+  },
+
+  async commentRemove(
+    _root: undefined,
+    { _id, commentId }: { _id: string; commentId: string },
+    { models }: IContext,
+  ) {
+    return await models.Accounts.commentRemove(_id, commentId);
   },
 };

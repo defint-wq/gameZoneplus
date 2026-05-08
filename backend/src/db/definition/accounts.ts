@@ -1,5 +1,13 @@
 import mongoose from "mongoose";
 
+const commentSchema = new mongoose.Schema(
+  {
+    userId: { type: String, required: true },
+    text: { type: String, required: true },
+  },
+  { timestamps: true, _id: true },
+);
+
 export const accountSchema = new mongoose.Schema(
   {
     title: {
@@ -48,10 +56,7 @@ export const accountSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
-    comments: {
-      type: [String],
-      default: [],
-    },
+    comments: { type: [commentSchema], default: [] },
   },
   {
     timestamps: true,

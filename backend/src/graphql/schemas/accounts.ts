@@ -1,4 +1,12 @@
 export const types = () => `
+
+    type Comment {
+    _id: String!
+    userId: String!
+    text: String!
+    createdAt: String!
+  }
+
   type Account {
     _id: String!
     title: String!
@@ -10,8 +18,10 @@ export const types = () => `
     description: String!
     isVerified: Boolean!
     likes: [String]!
-    comments: [String]!
+    comments: [Comment]
   }
+
+
 
   type PageInfo {
     totalPages: Int
@@ -37,7 +47,6 @@ const accountParams = `
   description: String!
   isVerified: Boolean!
   likes: [String]!
-  comments: [String]!
 `;
 
 export const queries = `
@@ -48,4 +57,9 @@ export const mutations = `
   accountAdd(${accountParams}): Account
   accountEdit(_id: String!, ${accountParams}): Account
   accountsRemove(ids: [String]!): String
+
+  accountLike(_id: String!, userId: String!): Account
+  accountUnlike(_id: String!, userId: String!): Account
+  commentAdd(_id: String!, userId: String!, text: String!): Account
+  commentRemove(_id: String!, commentId: String!): Account
 `;

@@ -1,17 +1,15 @@
 import { useState } from "react";
-import { addComment } from "../../../../../backend/services/accountService";
 import { LikeButton } from "./Like";
+import { useAccountActions } from "../hooks/useAccountAction";
 
 export const CommentBox = ({ account }: any) => {
   const [text, setText] = useState("");
-  const [comments, setComments] = useState(account.comments || []);
+  const { handleCommentAdd, handleCommentRemove } = useAccountActions();
   const userId = "user1";
 
   const handleSend = async () => {
     if (!text.trim()) return;
-
-    const updated = await addComment(account.id, userId, text);
-    setComments(updated.comments);
+    await handleCommentAdd(account._id, userId, text);
     setText("");
   };
 
@@ -19,15 +17,23 @@ export const CommentBox = ({ account }: any) => {
     <div className="mt-4 rounded-xl border border-white/10 bg-[#0b1220] p-4 shadow-lg">
       {/* comments */}
       <div className="space-y-2 max-h-40 overflow-y-auto pr-1">
-        {comments.length === 0 ? (
+        {account.comments?.length === 0 ? (
           <p className="text-sm text-gray-500">No comments yet...</p>
         ) : (
-          comments.map((c: any) => (
+          account.comments?.map((c: any) => (
             <div
-              key={c.id}
-              className="rounded-lg bg-[#111a2e] px-3 py-2 text-sm text-gray-200 border border-white/5"
+              key={c._id}
+              className="rounded-lg bg-[#111a2e] px-3 py-2 text-sm text-gray-200 border border-white/5 flex justify-between items-center"
             >
-              💬 <span className="text-gray-300">{c.text}</span>
+              <span>
+                💬 <span className="text-gray-300">{c.text}</span>
+              </span>
+              <button
+                onClick={() => handleCommentRemove(account._id, c._id)}
+                className="text-xs text-red-400 hover:text-red-300 ml-2"
+              >
+                ✕
+              </button>
             </div>
           ))
         )}

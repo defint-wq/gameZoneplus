@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { getAccounts } from "../../../../../backend/services/accountService";
+import { useAccounts } from "../hooks/useAccounts";
 import { CommentBox } from "./Comment";
 
 export const AccountList = ({
@@ -11,34 +10,25 @@ export const AccountList = ({
   minPrice?: string;
   maxPrice?: string;
 }) => {
-  const [accounts, setAccounts] = useState<any[]>([]);
+  const { accounts, loading } = useAccounts();
 
-  useEffect(() => {
-    const fetchAccounts = async () => {
-      try {
-        const data = await getAccounts();
-        setAccounts(data);
-      } catch (error) {
-        console.error("Failed to fetch accounts:", error);
-      }
-    };
-    fetchAccounts();
-  }, []);
+  if (loading) {
+    return <div className="text-center p-8 text-gray-500">Уншиж байна...</div>;
+  }
 
-  // Шүүлтүүрийн болон хайлтын логик
   const filtered = accounts.filter((acc) => {
-    // Нэрээр хайх
     const matchesName = acc.title
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
 
-    // Үнийн хооронд шүүх
     const min = minPrice ? parseFloat(minPrice) : 0;
     const max = maxPrice ? parseFloat(maxPrice) : Infinity;
     const matchesPrice = acc.price >= min && acc.price <= max;
 
     return matchesName && matchesPrice;
   });
+
+  console.log("FILTERED:", filtered);
 
   return (
     <div className="grid gap-4 p-4">
@@ -49,7 +39,7 @@ export const AccountList = ({
       ) : (
         filtered.map((acc) => (
           <div
-            key={acc.id}
+            key={acc._id}
             className="border border-white/10 rounded-xl p-4 bg-[#0d1220]"
           >
             <h3 className="text-lg font-bold text-white">{acc.title}</h3>
@@ -57,7 +47,6 @@ export const AccountList = ({
             <div className="mt-2 flex gap-4 text-sm text-slate-300">
               <span>💎 Skins: {acc.skins}</span>
               <span>🔥 WinRate: {acc.winRate}%</span>
-              <span>🧑 Heroes: {acc.heroCount}</span>
             </div>
             <div className="mt-2 flex justify-between items-center text-sm font-semibold">
               <span className="text-emerald-400">

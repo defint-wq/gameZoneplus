@@ -1,5 +1,4 @@
 export interface IAccount {
-  id: number;
   title: string;
   skins: number;
   winRate: number;
@@ -12,7 +11,7 @@ export interface IAccount {
   comments: string[];
 }
 
-export interface IAccountDocument extends IAccount, Document {
+export interface IAccountDocument extends IAccount {
   _id: string;
   createdAt: Date;
 }
