@@ -23,6 +23,12 @@ export const getContext = (): IContext => {
   return { models: getModels() };
 };
 
+export const initModels = () => {
+  const models = {} as IModels;
+  models.Accounts = loadAccountClass(models);
+  return models;
+};
+
 export const getModels = (): IModels => {
   if (!models) throw new Error("Models not initialized");
   return models;
@@ -49,10 +55,7 @@ export async function connect(): Promise<mongoose.Connection> {
 
   await mongoose.connect(MONGO_URL, mongooseConnectionOptions);
 
-  models = {
-    Accounts: loadAccountClass(models),
-  };
-
+  models = initModels();
   return mongoose.connection;
 }
 

@@ -14,8 +14,6 @@ const start = async () => {
   await connect();
   await apolloServer.start();
 
-  console.log("Apollo introspection:", apolloServer.internals);
-
   app.use(
     "/graphql",
     express.json(),
