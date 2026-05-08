@@ -13,7 +13,7 @@ export const ShopPage = () => {
   const [maxPrice, setMaxPrice] = useState("");
 
   return (
-    <PageContainer>
+    <PageContainer className="ml-32">
       <ShopHeader />
 
       <SearchSection
