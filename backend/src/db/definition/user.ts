@@ -22,10 +22,6 @@ const userSchema = new mongoose.Schema({
     enum: ["player", "admin"],
     default: "admin",
   },
-  nickname: {
-    type: String,
-    trim: true,
-  },
   createdAt: {
     type: Date,
     default: Date.now,

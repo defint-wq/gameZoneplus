@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const accountSchema = new mongoose.Schema(
+export const accountSchema = new mongoose.Schema(
   {
     id: {
       type: Number,
