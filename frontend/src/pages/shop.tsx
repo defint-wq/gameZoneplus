@@ -4,13 +4,20 @@ import { SearchSection } from "../modules/shop/components/SearchSection";
 import { ShopFooter } from "../modules/shop/components/ShopFooter";
 import { ShopHeader } from "../modules/shop/components/ShopHeader";
 import { PageContainer } from "../../ui/components/page";
+import { LoginPage } from "./loginPage";
 
 export const ShopPage = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // 2. Дэлгүүрийн хайлтын төлөвүүд
   const [searchQuery, setSearchQuery] = useState("");
   const [showFilters, setShowFilters] = useState(false);
-
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+
+  if (!isAuthenticated) {
+    return <LoginPage onLoginSuccess={() => setIsAuthenticated(true)} />;
+  }
 
   return (
     <PageContainer className="ml-32">

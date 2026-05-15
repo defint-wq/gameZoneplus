@@ -1,16 +1,9 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import {
-  Trophy,
-  Clock,
-  Plus,
-  Wallet,
-  Coins,
-  TrendingUp,
-  DollarSign,
-  CreditCard,
-  History,
-} from "lucide-react";
-import { motion } from "framer-motion";
+  Trophy, Clock, Plus, Wallet, Coins, 
+  TrendingUp, DollarSign, CreditCard, History
+} from 'lucide-react'
+import { motion } from 'framer-motion'
 
 // 1. Төрөл болон Интерфэйсүүд
 type TabType = "betting" | "wallet";
@@ -136,21 +129,44 @@ const MOCK_TRANSACTIONS: Transaction[] = [
 ];
 
 export function ArcadePage() {
+<<<<<<< HEAD
   const [activeTab, setActiveTab] = useState<TabType>("betting");
   const [loading, setLoading] = useState(true);
   const [coins] = useState(2500);
+=======
+  // 🔒 1. Нэвтрэлтийн төлөв нэмэв
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  
+  const [activeTab, setActiveTab] = useState<TabType>('betting')
+  const [loading, setLoading] = useState(true)
+  const [coins] = useState(2500)
+>>>>>>> 38c240f9dcbd7ab5b3ebeda1272e904278e11e1f
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
 
+<<<<<<< HEAD
   if (loading)
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
         <div className="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />
       </div>
     );
+=======
+  // 🔒 2. Хэрэв нэвтрээгүй бол Логин хуудсыг харуулна
+  if (!isAuthenticated) {
+    return <LoginPage onLoginSuccess={() => setIsAuthenticated(true)} />;
+  }
+
+  // Ачаалж буй төлөв (Зөвхөн нэвтэрсний дараа ажиллана)
+  if (loading) return (
+    <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
+      <div className="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+    </div>
+  )
+>>>>>>> 38c240f9dcbd7ab5b3ebeda1272e904278e11e1f
 
   return (
     <div className="max-w-7xl mx-auto space-y-10 pb-20 px-4 md:px-0">
