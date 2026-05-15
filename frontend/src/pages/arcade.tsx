@@ -4,6 +4,7 @@ import {
   TrendingUp, DollarSign, CreditCard, History
 } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { LoginPage } from './loginPage';
 
 // 1. Төрөл болон Интерфэйсүүд
 type TabType = 'betting' | 'wallet';
@@ -46,6 +47,9 @@ const MOCK_TRANSACTIONS: Transaction[] = [
 ]
 
 export function ArcadePage() {
+  // 🔒 1. Нэвтрэлтийн төлөв нэмэв
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  
   const [activeTab, setActiveTab] = useState<TabType>('betting')
   const [loading, setLoading] = useState(true)
   const [coins] = useState(2500)
@@ -55,6 +59,12 @@ export function ArcadePage() {
     return () => clearTimeout(timer)
   }, [])
 
+  // 🔒 2. Хэрэв нэвтрээгүй бол Логин хуудсыг харуулна
+  if (!isAuthenticated) {
+    return <LoginPage onLoginSuccess={() => setIsAuthenticated(true)} />;
+  }
+
+  // Ачаалж буй төлөв (Зөвхөн нэвтэрсний дараа ажиллана)
   if (loading) return (
     <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
       <div className="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />

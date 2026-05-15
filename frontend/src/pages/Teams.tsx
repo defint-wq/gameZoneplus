@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { LoginPage } from './loginPage';
 
 interface Member {
   userId: string;
@@ -12,6 +13,17 @@ interface Team {
   leaderId: string;
   members: Member[];
   createdAt: string;
+}
+
+// 💡 Нэвтэрсэн хэрэглэгчийн төрлийг тодорхойлно
+interface UserType {
+  username: string;
+  role: string;
+}
+
+interface TeamsPageProps {
+  user: UserType | null;               // Эх компонент эсвэл Router-ээс ирнэ
+  onLoginSuccess?: () => void;         // Түр зуур хуудас дээр тест хийж байгаа бол ашиглана
 }
 
 const MOCK_TEAMS: Team[] = [
@@ -40,11 +52,16 @@ const MOCK_TEAMS: Team[] = [
   }
 ];
 
-// Named export болон Default export хоёуланг нь нэмлээ (Алдаанаас сэргийлэх)
-export const TeamsPage = () => {
+export const TeamsPage = ({ user, onLoginSuccess }: TeamsPageProps) => {
   const [teams] = useState<Team[]>(MOCK_TEAMS);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
+  // 🔒 1. ХЭРЭВ ХЭРЭГЛЭГЧ НЭВТРЭЭГҮЙ (NULL) БОЛ ЛОГИН ХАРУУЛНА
+  if (!user) {
+    return <LoginPage onLoginSuccess={onLoginSuccess || (() => {})} />;
+  }
+
+  // 👥 2. НЭВТРЭСЭН ҮЕД БАГИЙН ЖАГСААЛТЫГ ХАРУУЛНА
   return (
     <div className="min-h-screen text-white p-4 md:p-8">
       <div className="max-w-7xl mx-auto">

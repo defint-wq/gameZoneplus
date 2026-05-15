@@ -5,14 +5,22 @@ import {
   User,
   ShoppingCart,
   Users,
-  Newspaper,
   Shield,
   Menu,
   X,
 } from "lucide-react";
 import { useState } from "react";
 
-export const MainLayout = () => {
+interface UserType {
+  username: string;
+  role: string;
+}
+
+interface MainLayoutProps {
+  user: UserType | null; // Нэвтрээгүй үед null байхыг зөвшөөрнө
+}
+
+export const MainLayout = ({ user }: MainLayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const menuItems = [
@@ -21,17 +29,26 @@ export const MainLayout = () => {
     { path: "/shop", icon: ShoppingCart, label: "Shop" },
     { path: "/arcade", icon: Gamepad2, label: "Arcade" },
     { path: "/teams", icon: Users, label: "Teams" },
-    { path: "/admin", icon: Shield, label: "Admin Panel" },
   ];
 
+  // 💡 Энд 'user?.role' гэж Optional Chaining (?.) ашигласан эсэхээ шалгаарай.
+  // Учир нь user нь null байх үед алдаа унахаас сэргийлнэ.
+  const filteredMenuItems =
+    user?.role === "admin"
+      ? [...menuItems, { path: "/admin", icon: Shield, label: "Admin Panel" }]
+      : menuItems;
   return (
     <div className="min-h-screen bg-[#050814] text-[#e5e9ff]">
-
       {/* MOBILE HEADER */}
       <div className="lg:hidden fixed top-0 left-0 right-0 bg-[#0d1220] border-b border-[rgba(91,104,245,0.15)] z-50 px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Gamepad2 className="w-6 h-6 text-[#5b68f5]" />
           <span className="font-bold text-lg">MLBB</span>
+        </div>
+
+        {/* Одоо энэ товчлуур дээрх 'user.role' нь App.tsx-ээс ирж буй пропсыг шууд уншина */}
+        <div className="text-xs bg-white/10 px-2 py-1 rounded text-cyan-400 mr-2">
+          Role: {user?.role}
         </div>
 
         <button
@@ -68,7 +85,7 @@ export const MainLayout = () => {
 
           {/* NAVIGATION */}
           <nav className="space-y-2">
-            {menuItems.map((item) => {
+            {filteredMenuItems.map((item) => {
               const Icon = item.icon;
 
               return (
@@ -119,14 +136,10 @@ export const MainLayout = () => {
 
       {/* MAIN CONTENT */}
       <main className="lg:ml-64 min-h-screen pt-16 lg:pt-0 relative">
-
-        {/* glow background */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(56,189,248,0.08),transparent_40%),radial-gradient(circle_at_80%_30%,rgba(168,85,247,0.08),transparent_40%)] pointer-events-none" />
-
         <div className="relative p-4 md:p-8">
           <Outlet />
         </div>
-
       </main>
     </div>
   );
