@@ -12,6 +12,8 @@ import { TeamsRoutes } from "../components/TeamsRoutes";
 import { AdminRoutes } from "../components/AdminRoutes";
 import { ProfileRoutes } from "../components/ProfileRoutes";
 import { ArcadeRoutes } from "../components/ArcadeRoutes";
+import { LoginPage } from "../../../pages/loginPage";
+import Register from "../../../pages/register";
 
 interface UserType {
   username: string;
@@ -35,19 +37,22 @@ export const useCreateAppRouter = (
 ) => {
   return createBrowserRouter(
     createRoutesFromElements(
-      // MainLayout руу user-ийг дамжуулна
-      <Route element={<MainLayout user={user} />}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/shop" element={<ShopRoutes />} />
-        <Route path="/teams" element={<TeamsRoutes />} />
-        <Route path="/profile" element={<ProfileRoutes />} />
-        <Route path="/arcade" element={<ArcadeRoutes />} />
+      <Route>
+        <Route path="/auth/register" element={<Register />} />
+        <Route path="/auth/login" element={<LoginPage />} />
+        <Route element={<MainLayout user={user} />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/shop" element={<ShopRoutes />} />
+          <Route path="/teams" element={<TeamsRoutes />} />
+          <Route path="/profile" element={<ProfileRoutes />} />
+          <Route path="/arcade" element={<ArcadeRoutes />} />
 
-        <Route element={<AdminProtectedRoute user={user} />}>
-          <Route path="/admin/*" element={<AdminRoutes />} />
+          <Route element={<AdminProtectedRoute user={user} />}>
+            <Route path="/admin/*" element={<AdminRoutes />} />
+          </Route>
+
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
-
-        <Route path="*" element={<Navigate to="/" replace />} />
       </Route>,
     ),
   );

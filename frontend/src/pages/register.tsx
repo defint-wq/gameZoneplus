@@ -36,7 +36,17 @@ const Register = () => {
         }),
       });
 
-      const data = await response.json();
+      const text = await response.text();
+
+      if (!text) {
+        throw new Error("Серверээс хоосон хариу ирлээ.");
+      }
+
+      const data = JSON.parse(text);
+
+      if (!response.ok) {
+        throw new Error(data.error || "Алдаа гарлаа");
+      }
 
       if (!response.ok) {
         throw new Error(data.error || "Бүртгэл амжилтгүй боллоо");
@@ -95,7 +105,7 @@ const Register = () => {
       </form>
 
       <p>
-        Акаунттай юу? <Link to="/login">Нэвтрэх</Link>
+        Акаунттай юу? <Link to="/auth/login">Нэвтрэх</Link>
       </p>
     </div>
   );

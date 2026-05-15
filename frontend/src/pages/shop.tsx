@@ -7,8 +7,9 @@ import { PageContainer } from "../../ui/components/page";
 import { LoginPage } from "./loginPage";
 
 export const ShopPage = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return !!localStorage.getItem("token"); // token байвал true, байхгүй бол false
+  });
   // 2. Дэлгүүрийн хайлтын төлөвүүд
   const [searchQuery, setSearchQuery] = useState("");
   const [showFilters, setShowFilters] = useState(false);
