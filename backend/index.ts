@@ -4,6 +4,7 @@ import express from "express";
 import { expressMiddleware } from "@as-integrations/express5";
 import { getContext, connect } from "./connectionResolver";
 import { apolloServer } from "./src/apolloIndex";
+import { authRoutes } from "./src/auth/authRouter";
 
 const app = express();
 
@@ -13,6 +14,8 @@ app.use(express.json());
 const start = async () => {
   await connect();
   await apolloServer.start();
+
+  app.use("/auth", authRoutes);
 
   app.use(
     "/graphql",

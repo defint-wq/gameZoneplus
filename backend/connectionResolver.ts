@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { loadAccountClass, type IAccountModel } from "./src/db/models/Accounts";
+import type { IUserModel } from "./src/db/models/User";
 
 const MONGO_URL =
   process.env.MONGO_URL ||
@@ -12,6 +13,7 @@ const mongooseConnectionOptions: mongoose.ConnectOptions = {
 
 export interface IModels {
   Accounts: IAccountModel;
+  Users: IUserModel;
 }
 
 export interface IContext {
